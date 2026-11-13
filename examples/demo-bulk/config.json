@@ -1,0 +1,98 @@
+{
+  "name": "示例课题：慢性炎症下的上皮屏障功能",
+  "description": "用于演示需求单生成与校验的虚构 Bulk RNA-seq 课题，不含真实样本。",
+  "domain": "消化系统",
+  "disease": "示例炎症性疾病",
+  "species": "Homo sapiens",
+  "lineId": "line1_bulk",
+  "datasets": [
+    {
+      "gse": "GSE999001",
+      "gpl": "GPL570",
+      "role": "train",
+      "dataType": "microarray",
+      "sampleCount": 12,
+      "tissue": "结肠黏膜"
+    },
+    {
+      "gse": "GSE999002",
+      "gpl": "GPL570",
+      "role": "validation",
+      "dataType": "microarray",
+      "sampleCount": 8,
+      "tissue": "结肠黏膜"
+    }
+  ],
+  "groups": [
+    {
+      "groupId": "g1",
+      "groupName": "Control",
+      "role": "reference",
+      "sampleIds": [
+        "GSM9000001",
+        "GSM9000002",
+        "GSM9000003",
+        "GSM9000004",
+        "GSM9000005",
+        "GSM9000006",
+        "GSM9000007",
+        "GSM9000008",
+        "GSM9000009",
+        "GSM9000010"
+      ]
+    },
+    {
+      "groupId": "g2",
+      "groupName": "Disease",
+      "role": "disease_stage",
+      "sampleIds": [
+        "GSM9000011",
+        "GSM9000012",
+        "GSM9000013",
+        "GSM9000014",
+        "GSM9000015",
+        "GSM9000016",
+        "GSM9000017",
+        "GSM9000018",
+        "GSM9000019",
+        "GSM9000020"
+      ]
+    }
+  ],
+  "contrasts": [
+    {
+      "name": "Disease_vs_Control",
+      "case": "Disease",
+      "ctrl": "Control",
+      "isPrimary": true
+    }
+  ],
+  "focusGenes": ["GENE_A", "GENE_B", "GENE_C"],
+  "targetKoGene": "",
+  "isExploratory": false,
+  "cutoffProfile": "standard",
+  "useAdjP": true,
+  "adjPThreshold": 0.05,
+  "log2fcThreshold": 1.0,
+  "phenotypeModules": {
+    "epithelial_barrier": {
+      "label": "上皮屏障",
+      "genes": ["GENE_A", "GENE_B"],
+      "description": "紧密连接与黏液层相关基因集合，仅为示例"
+    }
+  },
+  "references": [
+    {
+      "name": "demo-reference.pdf",
+      "path": "refs/demo-reference.pdf",
+      "size": 102400,
+      "title": "Demo reference for manifest validation",
+      "authors": "Demo Authors",
+      "journal": "Demo Journal",
+      "year": 2025,
+      "pmid": "00000000",
+      "doi": "10.0000/demo"
+    }
+  ],
+  "notes": "所有 GSE、GPL、GSM 与基因名均为占位符，仅用于验证需求单结构。"
+}

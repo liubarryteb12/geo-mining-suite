@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/geo-mining-suite/workbench-manifest.schema.json",
+  "title": "Bioinformatics Workbench Manifest",
+  "description": "需求单契约。同一语义同时提供 camelCase 与 snake_case，任一侧均可被消费方读取。",
+  "type": "object",
+  "required": [
+    "manifest_version",
+    "schema_version",
+    "lineId",
+    "basicInfo",
+    "dataSource",
+    "groupingDesign",
+    "pipelineDag",
+    "steps",
+    "modIds",
+    "biologicalPriors",
+    "analysisCutoffs",
+    "references",
+    "aclAndOutput"
+  ],
+  "properties": {
+    "manifest_version": { "type": "string", "const": "1.0" },
+    "schema_version": { "type": "string" },
+    "submitted_at": { "type": "string" },
+    "created_at": { "type": "string" },
+    "id": { "$ref": "#/$defs/projectId" },
+    "projectId": { "$ref": "#/$defs/projectId" },
+    "project_id": { "$ref": "#/$defs/projectId" },
+    "lineId": { "$ref": "#/$defs/lineId" },
+    "line_id": { "$ref": "#/$defs/lineId" },
+    "seriesId": { "$ref": "#/$defs/lineId" },
+    "series_id": { "$ref": "#/$defs/lineId" },
+    "analysisMode": { "enum": ["targeted", "exploratory"] },
+    "analysis_mode": { "enum": ["targeted", "exploratory"] },
+    "basicInfo": { "$ref": "#/$defs/basicInfo" },
+    "basic_info": { "$ref": "#/$defs/basicInfo" },
+    "dataSource": { "$ref": "#/$defs/dataSource" },
+    "data_source": { "$ref": "#/$defs/dataSource" },
+    "groupingDesign": { "$ref": "#/$defs/groupingDesign" },
+    "grouping_design": { "$ref": "#/$defs/groupingDesign" },
+    "pipelineDag": {
+      "type": "array",
+      "minItems": 15,
+      "items": { "$ref": "#/$defs/dagStep" }
+    },
+    "pipeline_dag": {
+      "type": "array",
+      "minItems": 15,
+      "items": { "$ref": "#/$defs/dagStep" }
+    },
+    "steps": { "type": "array", "items": { "type": "string" } },
+    "modIds": { "type": "array", "items": { "type": "string" } },
+    "mod_ids": { "type": "array", "items": { "type": "string" } },
+    "biologicalPriors": { "$ref": "#/$defs/biologicalPriors" },
+    "biological_priors": { "$ref": "#/$defs/biologicalPriors" },
+    "phenotypeModules": { "type": "object" },
+    "phenotype_modules": { "type": "object" },
+    "analysisCutoffs": { "$ref": "#/$defs/analysisCutoffs" },
+    "analysis_cutoffs": { "$ref": "#/$defs/analysisCutoffs" },
+    "plotLayoutConfig": { "type": "object" },
+    "plot_layout_config": { "type": "object" },
+    "experimentalDesign": { "type": "object" },
+    "experimental_design": { "type": "object" },
+    "validationGroupMapping": { "type": "object" },
+    "validation_group_mapping": { "type": "object" },
+    "wgcnaConfig": { "type": "object" },
+    "wgcna_config": { "type": "object" },
+    "references": { "type": "array", "items": { "$ref": "#/$defs/reference" } },
+    "aclAndOutput": { "type": "object" },
+    "acl_and_output": { "type": "object" },
+    "figure_templates": { "type": "array" },
+    "figure_tasks": { "type": "array" },
+    "dataFiles": { "type": "array" },
+    "data_files": { "type": "array" },
+    "notes": { "type": "string" }
+  },
+  "$defs": {
+    "projectId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_]+$",
+      "minLength": 3
+    },
+    "lineId": {
+      "enum": ["line1_bulk", "line2_scrna", "line3_spatial"]
+    },
+    "basicInfo": {
+      "type": "object",
+      "required": ["name", "disease", "species"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "domain": { "type": "string" },
+        "disease": { "type": "string" },
+        "species": { "type": "string" },
+        "contact": { "type": "string" },
+        "nonTumorVerified": { "type": "boolean" }
+      }
+    },
+    "dataset": {
+      "type": "object",
+      "required": ["gse", "gpl", "role", "sampleCount"],
+      "properties": {
+        "gse": { "type": "string", "pattern": "^GSE\\d+$" },
+        "gpl": { "type": "string", "pattern": "^GPL\\d+$" },
+        "role": { "enum": ["train", "validation", "external_validation"] },
+        "dataType": { "type": "string" },
+        "sampleCount": { "type": "integer", "minimum": 1 },
+        "tissue": { "type": "string" }
+      }
+    },
+    "dataSource": {
+      "type": "object",
+      "required": ["source", "dataType", "sampleCount", "datasets"],
+      "properties": {
+        "source": { "type": "string", "examples": ["GEO"] },
+        "dataType": { "type": "string" },
+        "data_type": { "type": "string" },
+        "data_source_mode": { "enum": ["PUBLIC_DB", "LOCAL_UPLOAD"] },
+        "datasets": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/dataset" } },
+        "sampleCount": { "type": "integer", "minimum": 8 },
+        "tissue": { "type": "string" }
+      }
+    },
+    "group": {
+      "type": "object",
+      "required": ["groupId", "groupName", "role", "sampleIds"],
+      "properties": {
+        "groupId": { "type": "string" },
+        "groupName": { "type": "string" },
+        "role": { "type": "string" },
+        "stageOrder": { "type": "integer" },
+        "colorHex": { "type": "string" },
+        "sampleIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^GSM\\d+$" }
+        }
+      }
+    },
+    "groupingDesign": {
+      "type": "object",
+      "required": ["mode", "groups", "contrasts"],
+      "properties": {
+        "mode": { "type": "string" },
+        "groups": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/group" } },
+        "contrasts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name", "case", "ctrl"],
+            "properties": {
+              "name": { "type": "string" },
+              "case": { "type": "string" },
+              "ctrl": { "type": "string" },
+              "isPrimary": { "type": "boolean" },
+              "enabled": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "dagStep": {
+      "type": "object",
+      "required": ["order", "stepId", "mod_id"],
+      "properties": {
+        "order": { "type": "integer", "minimum": 1 },
+        "stepId": { "type": "string" },
+        "mod_id": { "type": "string" }
+      }
+    },
+    "biologicalPriors": {
+      "type": "object",
+      "properties": {
+        "targetKoGene": { "type": "string" },
+        "target_ko_gene": { "type": "string" },
+        "focusGenes": { "type": "array", "items": { "type": "string" } },
+        "focus_genes": { "type": "array", "items": { "type": "string" } },
+        "koFallbackPolicy": { "type": "string" },
+        "ko_fallback_policy": { "type": "string" }
+      }
+    },
+    "analysisCutoffs": {
+      "type": "object",
+      "properties": {
+        "profile": { "type": "string" },
+        "use_adj_p": { "type": "boolean" },
+        "adj_p_threshold": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
+        "log2fc_threshold": { "type": "number", "minimum": 0 },
+        "p_threshold": { "type": "number", "exclusiveMinimum": 0, "exclusiveMaximum": 1 },
+        "max_mt_percent": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "required": ["name", "path", "size"],
+      "properties": {
+        "name": { "type": "string" },
+        "path": { "type": "string" },
+        "size": { "type": "integer", "minimum": 1 },
+        "title": { "type": "string" },
+        "authors": { "type": "string" },
+        "journal": { "type": "string" },
+        "year": { "type": "integer" },
+        "pmid": { "type": "string" },
+        "doi": { "type": "string" },
+        "gse": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

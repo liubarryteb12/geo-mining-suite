@@ -1,0 +1,18 @@
+{
+  "forbidden_disease_keywords": [
+    "cancer", "carcinoma", "tumor", "tumour", "sarcoma", "melanoma", "leukemia", "lymphoma", "glioma", "blastoma", "metastasis", "malignant", "neoplasm",
+    "癌", "肿瘤", "肉瘤", "白血病", "淋巴瘤", "胶质瘤", "转移灶", "恶性", "腺瘤"
+  ],
+  "forbidden_group_keywords": [
+    "tumor", "paracancerous", "adjacent_normal", "metastatic", "癌旁", "肿瘤组", "转移组"
+  ],
+  "forbidden_note_keywords": [
+    "tumor microenvironment", "TME", "immune infiltration in tumor", "肿瘤微环境", "肿瘤免疫浸润", "免疫检查点阻断"
+  ],
+  "auto_rewrite_map": {
+    "免疫微环境": "局部组织免疫稳态与炎症微环境",
+    "免疫浸润": "组织局部免疫细胞募集与比例变化",
+    "microenvironment": "local tissue niche and homeostasis",
+    "infiltration": "local immune cell recruitment"
+  }
+}

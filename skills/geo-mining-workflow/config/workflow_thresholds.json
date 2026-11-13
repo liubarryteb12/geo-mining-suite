@@ -1,0 +1,12 @@
+{
+  "min_total_samples": 8,
+  "min_group_samples": 4,
+  "allowed_data_types": ["microarray", "bulk_rnaseq", "scrna", "spatial"],
+  "allowed_domains": ["心脑血管", "神经退行", "代谢", "纤维化", "发育", "免疫", "其他非肿瘤"],
+  "allowed_species": ["Homo sapiens", "Mus musculus", "Rattus norvegicus"],
+  "max_project_desc_chars": 200,
+  "max_notes_chars": 4000,
+  "default_grouping_mode": "two_group",
+  "cross_platform_forbid_combat": true,
+  "keep_qc_outlier_in_main": true
+}

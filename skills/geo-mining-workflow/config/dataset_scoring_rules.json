@@ -1,0 +1,56 @@
+{
+  "dimensions": {
+    "sample_size": {
+      "weight": 25,
+      "tiers": [
+        {"min_samples": 60, "score": 25, "desc": "样本量极为充沛 (N>=60)"},
+        {"min_samples": 30, "score": 22, "desc": "样本量充沛 (30<=N<60)"},
+        {"min_samples": 15, "score": 18, "desc": "样本量良好 (15<=N<30)"},
+        {"min_samples": 8, "score": 10, "desc": "达到最低门槛 (8<=N<15)"},
+        {"min_samples": 0, "score": 0, "desc": "样本量不足 (N<8, 一票否决)"}
+      ]
+    },
+    "raw_data_quality": {
+      "weight": 30,
+      "items": {
+        "microarray_raw_tar": 30,
+        "bulk_raw_counts": 30,
+        "bulk_normalized_matrix": 20,
+        "scrna_mtx_h5": 30,
+        "spatial_complete_ranger": 30,
+        "series_matrix_only": 15,
+        "no_valid_data": 0
+      }
+    },
+    "phenotype_richness": {
+      "weight": 20,
+      "items": {
+        "base_binary_group": 8,
+        "has_demographics_age_sex": 5,
+        "has_clinical_stage_biomarkers": 5,
+        "has_tissue_biopsy_info": 2
+      }
+    },
+    "platform_maturity": {
+      "weight": 15,
+      "major_platforms": [
+        "GPL570", "GPL11532", "GPL14951", "GPL16791", "GPL24676",
+        "GPL17021", "GPL30172", "GPL21103", "GPL18573", "GPL1261"
+      ],
+      "major_score": 15,
+      "standard_score": 10,
+      "obscure_score": 5
+    },
+    "publication_credibility": {
+      "weight": 10,
+      "has_pubmed_id": 8,
+      "has_overall_design": 2
+    }
+  },
+  "grade_thresholds": {
+    "S": {"min_score": 85, "title": "S 级·极佳", "desc": "权威队列，样本量充沛、原始数据完备、临床注释丰富"},
+    "A": {"min_score": 70, "title": "A 级·良好", "desc": "完全符合课题交付要求，各项指标均衡稳健"},
+    "B": {"min_score": 50, "title": "B 级·可用", "desc": "满足基本红线，但在样本量或临床变量上略有欠缺"},
+    "C": {"min_score": 0, "title": "C 级·淘汰", "desc": "不满足红线约束（样本量<8或缺少原始表达数据）"}
+  }
+}

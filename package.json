@@ -1,0 +1,14 @@
+{
+  "name": "geo-mining-suite",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GEO mining, download and workbench manifest suite",
+  "license": "MIT",
+  "scripts": {
+    "test": "node tests/selftest.js",
+    "demo": "node skills/geo-workbench-bridge/scripts/generate_full_manifest.js --input examples/demo-bulk/config.json --out-dir build --validate"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

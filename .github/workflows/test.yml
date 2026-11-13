@@ -1,0 +1,30 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r skills/geo-mining-workflow/requirements.txt
+          pip install -r skills/geo-mining-download/requirements.txt
+      - name: Compile Python
+        run: |
+          python -m py_compile skills/geo-mining-workflow/scripts/*.py
+          python -m py_compile skills/geo-mining-download/scripts/*.py
+      - name: Run JavaScript self test
+        run: npm test
+      - name: Generate and validate demo manifest
+        run: npm run demo
